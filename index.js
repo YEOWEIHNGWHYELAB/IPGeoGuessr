@@ -56,17 +56,18 @@ function initInfoWindow() {
     let ip = generatePublicIP();
     document.querySelector("#ipValue").innerText = ip;
 
-    fetch(`http://ip-api.com/json/${ip}?fields=status,message,continent,country,countryCode,currency,region,regionName,city,zip,lat,lon,isp,org,as,query`)
+    let url = `https://api.ipgeolocation.io/ipgeo?ip=${ip}&apiKey=4380280dd62a46dab4914573d171bbaa`;
+    fetch(url)
         .then(res => res.json())
         .then((data) => {
             console.log(data);
 
-            document.querySelector("#hintCurrency").innerText = data.currency;
-            document.querySelector("#hintContinent").innerText = data.continent;
+            document.querySelector("#hintCurrency").innerText = data.currency.code;
+            document.querySelector("#hintContinent").innerText = data.continent_name;
             document.querySelector("#hintISP").innerText = data.isp;
 
-            targetPosition.lat = data.lat;
-            targetPosition.lng = data.lon;
+            targetPosition.lat = parseFloat(data.latitude);
+            targetPosition.lng = parseFloat(data.longitude);
         })
         .catch(error => console.error);
 }
