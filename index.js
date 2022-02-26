@@ -126,7 +126,8 @@ document.querySelector("#btnGuess").onclick = () => {
 
     // shows distance between your guess and the target
     let distance = calculateDistance(guessPosition, targetPosition);
-    alert(`Distance from actual location is ${distance} km`);
+    let timeTaken = document.querySelector("#timer").getAttribute("value");
+    alert(`Distance from actual location is ${distance} km\nTime taken: ${timeTaken} seconds`);
 };
 
 // resets map and regenerates target
