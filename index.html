@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <title>IPGeoGuessr</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="infoWindow">
+        <table>
+            <tr>
+                <td>IP Address:</td>
+                <td id="ipValue"></td>
+            </tr>
+            <tr>
+                <td>Currency:</td>
+                <td class="hint" id="hintCurrency"></td>
+            </tr>
+            <tr>
+                <td>Continent:</td>
+                <td class="hint" id="hintContinent"></td>
+            </tr>
+            <tr>
+                <td>ISP:</td>
+                <td class="hint" id="hintISP"></td>
+            </tr>
+        </table>
+        <button type="button" id="btnGuess">Guess It!</button>
+    </div>
+
+
+    <script type='text/javascript' src='ip.js'></script>
+    <script type='text/javascript' src='helper.js'></script>
+    <script type='text/javascript' src='index.js'></script>
+    <script async
+        src=https://maps.googleapis.com/maps/api/js?key=AIzaSyBiVuI2PB1JtTkiQ3KxV2uZiCTDMbUdBmc&callback=init></script>
+</body>
+
+</html>
