@@ -8,25 +8,28 @@
 <body>
     <div id="map"></div>
     <div id="infoWindow">
-        <table>
+        <table id="ipTable">
             <tr>
                 <td>IP Address:</td>
                 <td id="ipValue"></td>
             </tr>
             <tr>
                 <td>Currency:</td>
-                <td class="hint" id="hintCurrency"></td>
+                <td class="hint-blur" id="hintCurrency"></td>
             </tr>
             <tr>
                 <td>Continent:</td>
-                <td class="hint" id="hintContinent"></td>
+                <td class="hint-blur" id="hintContinent"></td>
             </tr>
             <tr>
                 <td>ISP:</td>
-                <td class="hint" id="hintISP"></td>
+                <td class="hint-blur" id="hintISP"></td>
             </tr>
         </table>
-        <button type="button" id="btnGuess">Guess It!</button>
+        <div id="btnContainer">
+            <button type="button" class="btn" id="btnGuess">Guess It!</button>
+            <button type="button" class="btn" id="btnReset">Reset</button>
+        </div>
     </div>
 
 

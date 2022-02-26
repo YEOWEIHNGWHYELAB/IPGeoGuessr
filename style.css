@@ -1,3 +1,8 @@
+html {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    background-color: black;
+}
+
 #map {
     margin: auto;
     height: 90%;
@@ -8,26 +13,42 @@
 }
 
 #infoWindow {
+    display: flex;
     user-select: none;
     position: absolute;
     height: 30%;
-    width: 20%;
-    background-color: lightgrey;
+    width: 25%;
+    background-color: rgb(80, 80, 80);
+    border-style: solid;
     border-radius: 5px;
+    border-color: rgb(201, 201, 201);
+    border-width: 1px;
 }
 
-#btnGuess {
+#ipTable {
+    margin: auto;
+    color: white;
+}
+
+#btnContainer {
     position: absolute;
-    left: 5px;
-    bottom: 5px;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
-.hint {
-    filter: blur(3px);
+.btn {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    font-size: 24px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.hint-blur {
+    filter: blur(4px);
     transition: 100ms;
 }
 
-.hint:hover {
-    filter: blur(0px);
-    transition: 100ms;
+.hint-blur:hover {
+    cursor: pointer;
 }
