@@ -1,3 +1,4 @@
+// generates a random non-reserved public IP address
 function generatePublicIP() {
     let ip = new Array(4);
     ip = ip.fill(0).map(() => Math.ceil(Math.random() * 255));
@@ -8,6 +9,7 @@ function generatePublicIP() {
 
     return ip.join(".");
 }
+
 
 // follows list of reserved IPs here:
 // https://en.wikipedia.org/wiki/Reserved_IP_addresses

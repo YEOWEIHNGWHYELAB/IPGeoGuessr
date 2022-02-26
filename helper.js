@@ -24,6 +24,7 @@ function calculateDistance(guessPosition, targetPosition) {
     return d.toFixed(2);
 }
 
+
 const nightModeStyles = [
     { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
     { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },

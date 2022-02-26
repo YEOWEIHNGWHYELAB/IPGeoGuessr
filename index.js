@@ -14,16 +14,19 @@ function init() {
     setInfoWindowPos();
 }
 
+
 // success callback for geolocator
 function geoSuccess(position) {
     initMap({ lat: position.coords.latitude, lng: position.coords.longitude });
 }
+
 
 // error callback for geolocator
 function geoError(err) {
     console.error(err);
     initMap({ lat: 0, lng: 0 });
 }
+
 
 // loads map div with google maps
 function initMap(position) {
@@ -40,6 +43,7 @@ function initMap(position) {
     google.maps.event.addListener(map, "click", (e) => placeMarker(e));
 }
 
+
 // adds the guess marker onto the map
 function placeMarker(e) {
     // clears previous marker if exists
@@ -54,6 +58,7 @@ function placeMarker(e) {
 
     guessMarker.setMap(map);
 }
+
 
 // populates info window with values
 function generateTarget() {
@@ -76,6 +81,7 @@ function generateTarget() {
         .catch(error => console.error);
 }
 
+
 // sets info window to bottom left of map
 function setInfoWindowPos() {
     let infoWindow = document.querySelector("#infoWindow"),
@@ -85,6 +91,7 @@ function setInfoWindowPos() {
     infoWindow.style.top = map.offsetTop + map.clientHeight - infoWindow.clientHeight - 3;
 }
 
+
 // handles guessing location
 document.querySelector("#btnGuess").onclick = () => {
     if (guessMarker == undefined) {
@@ -92,18 +99,32 @@ document.querySelector("#btnGuess").onclick = () => {
         return;
     }
 
+    // updates map UI to show results
     let guessPosition = { lat: guessMarker.position.lat(), lng: guessMarker.position.lng() };
+    drawTargetMarker();
+    drawMarkerLine(guessPosition, targetPosition);
 
-    // draws target marker onto map
+    // pans camera to target position
+    map.panTo(targetPosition);
+
+    // shows distance between your guess and the target
+    let distance = calculateDistance(guessPosition, targetPosition);
+    let timeTaken = document.querySelector("#timer").getAttribute("value");
+    alert(`Distance from actual location is ${distance} km\nTime taken: ${timeTaken} seconds`);
+};
+
+
+function drawTargetMarker() {
     targetMarker = new google.maps.Marker({
         position: targetPosition,
         map: map,
         icon: "https://i.imgur.com/TjOKoeA.png"
     });
-
     targetMarker.setMap(map);
+}
 
-    // draws line from guess to target marker
+
+function drawMarkerLine(guessPosition, targetPosition) {
     let line = new google.maps.Polyline({
         path: [guessPosition, targetPosition],
         strokeOpacity: 0,
@@ -118,17 +139,9 @@ document.querySelector("#btnGuess").onclick = () => {
             repeat: "10px"
         }]
     })
-
     line.setMap(map);
+}
 
-    // pans camera to target position
-    map.panTo(targetPosition);
-
-    // shows distance between your guess and the target
-    let distance = calculateDistance(guessPosition, targetPosition);
-    let timeTaken = document.querySelector("#timer").getAttribute("value");
-    alert(`Distance from actual location is ${distance} km\nTime taken: ${timeTaken} seconds`);
-};
 
 // resets map and regenerates target
 document.querySelector("#btnReset").onclick = () => {
@@ -149,12 +162,14 @@ document.querySelector("#btnReset").onclick = () => {
     generateTarget();
 };
 
+
 // shows hint on click
 document.querySelectorAll(".hint-blur").forEach((hint) => {
     hint.onclick = () => {
         hint.classList.remove("hint-blur");
     };
 });
+
 
 // resets info window position on resize
 window.addEventListener("resize", setInfoWindowPos);
