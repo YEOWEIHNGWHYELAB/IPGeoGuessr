@@ -27,6 +27,7 @@ html {
 
 #ipTable {
     margin: auto;
+    max-width: 70%;
     color: white;
 }
 

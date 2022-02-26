@@ -1,4 +1,5 @@
 let targetPosition = { lat: 0, lng: 0 };
+let targetMarker = undefined;
 let map = undefined;
 let guessMarker = undefined;
 
@@ -9,7 +10,7 @@ function init() {
     else
         initMap({ lat: 0, lng: 0 });
 
-    initInfoWindow();
+    generateTarget();
     setInfoWindowPos();
 }
 
@@ -55,7 +56,7 @@ function placeMarker(e) {
 }
 
 // populates info window with values
-function initInfoWindow() {
+function generateTarget() {
     let ip = generatePublicIP();
     document.querySelector("#ipValue").innerText = ip;
 
@@ -94,7 +95,7 @@ document.querySelector("#btnGuess").onclick = () => {
     let guessPosition = { lat: guessMarker.position.lat(), lng: guessMarker.position.lng() };
 
     // draws target marker onto map
-    let targetMarker = new google.maps.Marker({
+    targetMarker = new google.maps.Marker({
         position: targetPosition,
         map: map,
         icon: "https://i.imgur.com/TjOKoeA.png"
@@ -128,10 +129,28 @@ document.querySelector("#btnGuess").onclick = () => {
     alert(`Distance from actual location is ${distance} km`);
 };
 
+// resets map and regenerates target
+document.querySelector("#btnReset").onclick = () => {
+    if (targetMarker != undefined) {
+        targetMarker.setMap(null);
+        targetMarker = undefined;
+    }
+
+    if (guessMarker != undefined) {
+        guessMarker.setMap(null);
+        guessMarker = undefined;
+    }
+
+    document.querySelectorAll(".hint").forEach((hint) => {
+        hint.classList.add("hint-blur");
+    });
+
+    generateTarget();
+};
+
 // shows hint on click
 document.querySelectorAll(".hint-blur").forEach((hint) => {
     hint.onclick = () => {
-        hint.style.filter = "initial";
         hint.classList.remove("hint-blur");
     };
 });
